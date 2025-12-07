@@ -1,40 +1,38 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Colors } from '@/constants/theme';
-import { HapticTab } from '@/src/components/tabs/haptic-tab';
-import { IconSymbol } from '@/src/components/ui/icon-symbol';
+
+import { NativeTabs, Label, Icon, VectorIcon } from 'expo-router/unstable-native-tabs';
+import { Platform } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-          headerShown: false,
-          tabBarButton: HapticTab,
-      }}>
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="pill.fill" color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="settings"
-          options={{
-            title: 'Settings',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="gearshape.fill" color={color} />,
-          }}
-        />
-      </Tabs>
-    	<StatusBar style="auto" />
+      
+      <NativeTabs>
+	      <NativeTabs.Trigger name="index">
+	        <Label>Home</Label>
+	        {Platform.select({
+	          ios: <Icon sf="pills.fill" />,
+	          android: <Icon src={<VectorIcon family={MaterialIcons} name="medication" />} />,
+	        })}
+				</NativeTabs.Trigger>
+		    <NativeTabs.Trigger name="settings">
+		      <Label>Settings</Label>
+		      {Platform.select({
+		        ios: <Icon sf="gearshape.fill" />,
+		        android: <Icon src={<VectorIcon family={MaterialIcons} name="settings" />} />,
+		      })}
+			</NativeTabs.Trigger>
+
+      </NativeTabs>
+    	
+      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
