@@ -13,10 +13,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      
+    
       <NativeTabs>
 	      <NativeTabs.Trigger name="index">
-	        <Label>Home</Label>
+	        <Label>Scripts</Label>
 	        {Platform.select({
 	          ios: <Icon sf="pills.fill" />,
 	          android: <Icon src={<VectorIcon family={MaterialIcons} name="medication" />} />,
