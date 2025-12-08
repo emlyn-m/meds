@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		alignItems: 'center',
 		backgroundColor: '#fff',
-		borderRadius: 5
+		borderRadius: 5,
+		marginBottom: 12
 	},
 	
 	'medInfoWrapper': {
